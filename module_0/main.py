@@ -1,11 +1,10 @@
 ﻿import numpy as np
 
-max = 100;
 
 def score_game(game_core):
     '''Запускаем игру 1000 раз, чтобы узнать, как быстро игра угадывает число'''
     count_ls = []
-    #np.random.seed(1)  # фиксируем RANDOM SEED, чтобы ваш эксперимент был воспроизводим!
+    np.random.seed(1)  # фиксируем RANDOM SEED, чтобы ваш эксперимент был воспроизводим!
     random_array = np.random.randint(1, 101, size=(1000))
     for number in random_array:
         count_ls.append(game_core(number))
@@ -27,6 +26,7 @@ def game_core_v2(number):
             predict -= 1
     return(count) # выход из цикла, если угадали
 
+
 def game_core_v3(number):
 
     nmin = 1
@@ -39,12 +39,13 @@ def game_core_v3(number):
         count += 1
         if number > predict:
             nmin = predict
-            predict = nmin + int((nmax - nmin)/2)
+            predict = nmin + (nmax - nmin)//2
         elif number < predict:
             nmax = predict
-            predict = nmin + int((nmax - nmin)/2)
-    return(count) # выход из цикла, если угадали
+            predict = nmin + (nmax - nmin)//2
+    return count # выход из цикла, если угадали
+
 
 # Проверяем
-#score_game(game_core_v2)
+# score_game(game_core_v2)
 score_game(game_core_v3)
